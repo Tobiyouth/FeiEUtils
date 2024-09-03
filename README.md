@@ -34,80 +34,80 @@
 
 ```java
 
-     PrintCanvas content = PrintCanvasBuilder
-                .newBuilder()
-                //设置画布宽高, 单位mm
-                .width(55)
-                .height(80)
-                //设置画布内边距
-                .paddingTop(10)
-                .paddingLeft(10)
-                .paddingRight(0)
-                //设置画布打印方向, 反方向
-                .direction(DIRECTION.REVERSE)
-                .addRows(
-                        //添加只有一列的行, 字体放大两倍, 居中对齐
-                        SingleColRow.newRow("华谊钦州食堂").fontScale(2).center().build()
-                )
-                .addRows(
-                        //添加包含两列的行
-                        Row.builder()
-                                .addCols(
-                                        //打印当前日期, 文字高度放大两倍, 该列占本行一半宽度
-                                        Col.builder().content(SimpleDateFormat.getDateInstance().format(new Date()))
-                                                .fontHeightScale(2).percent(0.5f)
-                                                .build(),
-                                        //打印随机数, 该列占本行一半宽度
-                                        Col.builder().content(String.valueOf(Math.ceil(Math.random() * 1000)))
-                                                .percent(0.5f).build()
-                                ).build()
-                )
-                //添加一条分割线
-                .divide()
-                //添加菜品标题
-                .addRows(
-                        Row.builder()
-                                .addCols(
-                                        Col.builder().content("菜品").percent(0.5f).build(),
-                                        Col.builder().content("单价").percent(0.15f).build(),
-                                        Col.builder().content("数量").percent(0.15f).build(),
-                                        Col.builder().content("金额").percent(0.15f).build()
-                                )
-                                .build()
-                )
-                //添加一条有*号组成的分割线
-                .divide('*')
-                //添加两行菜品和金额, 菜品文字放大两倍
-                .addRows(
-                        Row.builder()
-                                .addCols(
-                                        Col.builder().content("红烧排骨").fontScale(2).percent(0.5f).build(),
-                                        Col.builder().content("1.00").percent(0.15f).build(),
-                                        Col.builder().content("1").percent(0.15f).build(),
-                                        Col.builder().content("1.00").percent(0.15f).build()
-                                )
-                                .build(),
-                        Row.builder()
-                                .addCols(
-                                        Col.builder().content("黄焖鸡米饭").fontScale(2).percent(0.5f).build(),
-                                        Col.builder().content("3.00").percent(0.15f).build(),
-                                        Col.builder().content("2").percent(0.15f).build(),
-                                        Col.builder().content("6.00").percent(0.15f).build()
-                                )
-                                .build()
-                )
-                .divide()
-                .addRows(
-                        SingleColRow.newRow("地址:华南理工大学b8实验室102").fontScale(2).build(),
-                        SingleColRow.newRow("手机:13048074047").fontScale(2).build()
-                )
-                .build();
+ PrintCanvas content = PrintCanvasBuilder
+            .newBuilder()
+            //设置画布宽高, 单位mm
+            .width(55)
+            .height(80)
+            //设置画布内边距
+            .paddingTop(10)
+            .paddingLeft(10)
+            .paddingRight(0)
+            //设置画布打印方向, 反方向
+            .direction(DIRECTION.REVERSE)
+            .addRows(
+                    //添加只有一列的行, 字体放大两倍, 居中对齐
+                    SingleColRow.newRow("华谊钦州食堂").fontScale(2).center().build()
+            )
+            .addRows(
+                    //添加包含两列的行
+                    Row.builder()
+                            .addCols(
+                                    //打印当前日期, 文字高度放大两倍, 该列占本行一半宽度
+                                    Col.builder().content(SimpleDateFormat.getDateInstance().format(new Date()))
+                                            .fontHeightScale(2).percent(0.5f)
+                                            .build(),
+                                    //打印随机数, 该列占本行一半宽度
+                                    Col.builder().content(String.valueOf(Math.ceil(Math.random() * 1000)))
+                                            .percent(0.5f).build()
+                            ).build()
+            )
+            //添加一条分割线
+            .divide()
+            //添加菜品标题
+            .addRows(
+                    Row.builder()
+                            .addCols(
+                                    Col.builder().content("菜品").percent(0.5f).build(),
+                                    Col.builder().content("单价").percent(0.15f).build(),
+                                    Col.builder().content("数量").percent(0.15f).build(),
+                                    Col.builder().content("金额").percent(0.15f).build()
+                            )
+                            .build()
+            )
+            //添加一条有*号组成的分割线
+            .divide('*')
+            //添加两行菜品和金额, 菜品文字放大两倍
+            .addRows(
+                    Row.builder()
+                            .addCols(
+                                    Col.builder().content("红烧排骨").fontScale(2).percent(0.5f).build(),
+                                    Col.builder().content("1.00").percent(0.15f).build(),
+                                    Col.builder().content("1").percent(0.15f).build(),
+                                    Col.builder().content("1.00").percent(0.15f).build()
+                            )
+                            .build(),
+                    Row.builder()
+                            .addCols(
+                                    Col.builder().content("黄焖鸡米饭").fontScale(2).percent(0.5f).build(),
+                                    Col.builder().content("3.00").percent(0.15f).build(),
+                                    Col.builder().content("2").percent(0.15f).build(),
+                                    Col.builder().content("6.00").percent(0.15f).build()
+                            )
+                            .build()
+            )
+            .divide()
+            .addRows(
+                    SingleColRow.newRow("地址:华南理工大学b8实验室102").fontScale(2).build(),
+                    SingleColRow.newRow("手机:13048074047").fontScale(2).build()
+            )
+            .build();
 
-        //获取最终的打印内容,
-        //当打印内容超过一个标签是会自动分页, 所以这里返回List, 一条记录表示一个标签.      
-        List<String> printContent = content.generalPrintContent();
-        for (String s : printContent) {
-            System.out.println(s);
-        }
+    //获取最终的打印内容,
+    //当打印内容超过一个标签是会自动分页, 所以这里返回List, 一条记录表示一个标签.      
+    List<String> printContent = content.generalPrintContent();
+    for (String s : printContent) {
+        System.out.println(s);
+    }
 
 ```
