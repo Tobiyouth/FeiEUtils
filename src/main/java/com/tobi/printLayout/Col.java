@@ -24,6 +24,10 @@ import static com.tobi.printLayout.constant.Constants.DIVIDE_DEFAULT;
 @Getter
 @Setter
 public class Col extends ContainerBase {
+    public static ColBuilder builder(){
+        return  new ColBuilder();
+    }
+
     /**
      * 父容器
      */

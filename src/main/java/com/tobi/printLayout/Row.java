@@ -3,6 +3,7 @@ package com.tobi.printLayout;
 import com.tobi.printLayout.tag.TextTag;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,10 @@ import java.util.Optional;
 @Getter
 @Setter
 public class Row extends ContainerBase {
+    public static RowBuilder builder(){
+        return new RowBuilder();
+    }
+
     private PrintCanvas printCanvas;
 
     private List<Col> cols = new ArrayList<>();

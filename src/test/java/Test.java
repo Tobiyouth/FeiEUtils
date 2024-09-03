@@ -1,8 +1,8 @@
-import com.tobi.printLayout.ColBuilder;
+import com.tobi.printLayout.Col;
 import com.tobi.printLayout.PrintCanvas;
 import com.tobi.printLayout.PrintCanvasBuilder;
 import com.tobi.printLayout.Row;
-import com.tobi.printLayout.RowBuilder;
+import com.tobi.printLayout.SingleColRow;
 import com.tobi.printLayout.constant.ALIGN;
 import com.tobi.printLayout.constant.DIRECTION;
 
@@ -20,38 +20,31 @@ public class Test {
                 .paddingLeft(10)
                 .paddingRight(0)
                 .direction(DIRECTION.REVERSE)
-                .addRow(
-                        RowBuilder.newBuilder()
-                                .addCol(
-                                        ColBuilder.newBuilder()
+                .addRows(
+                        Row.builder()
+                                .addCols(
+                                        Col.builder()
                                                 .percent(0.35f)
                                                 .content("hello world!")
                                                 .build()
-                                )
-                                .addCol(
-                                        ColBuilder.newBuilder()
-                                                .percent(0.65f)
-                                                .fontWidthScale(2)
-                                                .paddingTop(50)
-                                                .align(ALIGN.RIGHT)
-                                                .content("Tobiywewuth")
-                                                .build()
-                                )
-                                .build()
+                                ).build()
+                )
+                .addRows(
+                        SingleColRow.newRow("hhh").fontScale(2).right().build()
                 )
                 .divide()
-                .addRow(getRow(ALIGN.LEFT))
-                .addRow(getRow(ALIGN.RIGHT))
-                .addRow(getRow(ALIGN.LEFT))
-                .addRow(getRow(ALIGN.LEFT))
+                .addRows(getRow(ALIGN.LEFT))
+                .addRows(getRow(ALIGN.RIGHT))
+                .addRows(getRow(ALIGN.LEFT))
+                .addRows(getRow(ALIGN.LEFT))
 
 
                 .divide('┅')
-                .addRow(
-                        RowBuilder.newBuilder()
+                .addRows(
+                        Row.builder()
                                 .paddingRight(0)
-                                .addCol(
-                                        ColBuilder.newBuilder()
+                                .addCols(
+                                        Col.builder()
                                                 .paddingRight(0)
                                                 .align(ALIGN.RIGHT)
                                                 .content(new Date().toString())
@@ -60,7 +53,6 @@ public class Test {
                 )
                 .build();
 
-        content.setY(340);
         List<String> printContent = content.generalPrintContent();
         for (String s : printContent) {
             System.out.println(s);
@@ -68,10 +60,10 @@ public class Test {
     }
 
     private static Row getRow(ALIGN align) {
-        Row row = RowBuilder.newBuilder()
+        Row row = Row.builder()
                 .lineHeight(26)
-                .addCol(
-                        ColBuilder.newBuilder()
+                .addCols(
+                        Col.builder()
                                 .align(align)
                                 .content("11111111113333333333")
                                 .build()

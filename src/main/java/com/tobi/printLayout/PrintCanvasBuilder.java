@@ -3,7 +3,7 @@ package com.tobi.printLayout;
 
 import com.tobi.printLayout.constant.DIRECTION;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.Objects;
 
 import static com.tobi.printLayout.constant.Constants.DIVIDE_DEFAULT;
@@ -83,13 +83,8 @@ public class PrintCanvasBuilder {
         return this;
     }
 
-    public PrintCanvasBuilder addRow(Row row){
-        printContent.getRows().add(row);
-        return this;
-    }
-
-    public PrintCanvasBuilder addRows(List<Row> rows){
-        printContent.getRows().addAll(rows);
+    public PrintCanvasBuilder addRows(Row ...row){
+        printContent.getRows().addAll(Arrays.asList(row));
         return this;
     }
 
@@ -101,7 +96,7 @@ public class PrintCanvasBuilder {
      * @Date 2024/9/2 19:06
      **/
     public PrintCanvasBuilder divide(char symbol) {
-        this.addRow(Row.newDivide(symbol));
+        this.addRows(Row.newDivide(symbol));
         return this;
     }
 

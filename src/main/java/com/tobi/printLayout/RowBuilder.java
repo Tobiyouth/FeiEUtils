@@ -1,6 +1,6 @@
 package com.tobi.printLayout;
 
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Row 构造器
@@ -12,7 +12,7 @@ import java.util.List;
 public class RowBuilder {
     private Row row = new Row();
 
-    public static RowBuilder newBuilder(){
+    static RowBuilder newBuilder(){
         return new RowBuilder();
     }
 
@@ -65,13 +65,8 @@ public class RowBuilder {
         return this;
     }
 
-    public RowBuilder addCol(Col col){
-        this.row.getCols().add(col);
-        return this;
-    }
-
-    public RowBuilder addCols(List<Col> col){
-        row.getCols().addAll(col);
+    public RowBuilder addCols(Col ...col){
+        row.getCols().addAll(Arrays.asList(col));
         return this;
     }
 

@@ -15,7 +15,7 @@ import java.util.Objects;
 public class ColBuilder {
     private Col col = new Col();
 
-    public static ColBuilder newBuilder(){
+    static ColBuilder newBuilder(){
         return new ColBuilder();
     }
 
@@ -59,6 +59,16 @@ public class ColBuilder {
         }
 
         this.col.setFontHeightScale(fontHeightScale);
+        return this;
+    }
+
+    public ColBuilder fontScale(int scale){
+        if (scale > 10){
+            scale = 10;
+        }
+
+        this.col.setFontWidthScale(scale);
+        this.col.setFontHeightScale(scale);
         return this;
     }
 
