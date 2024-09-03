@@ -15,7 +15,7 @@ public final class Constants {
     /**
      * 文本行高比例
      */
-    public final static int LINE_HEIGHT_SCALE_DEFAULT = FONT_H_DOTS + 0;
+    public final static int LINE_HEIGHT_SCALE_DEFAULT = FONT_H_DOTS + 4;
 
     /**
      * 文本标签
