@@ -6,7 +6,38 @@
 
     <groupId>com.tobi</groupId>
     <artifactId>FeiUtils</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
+
+    <name>FeiUtils</name>
+    <!-- description必须有，否则上传时提示错误 -->
+    <description>飞蛾打印机布局工具</description>
+    <url>https://github.com/Tobiyouth/FeiEUtils.git</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Tobiyouth</name>
+            <email>ljt_email@qq.com</email>
+            <!-- organization及相关信息，可选 -->
+            <organization>Tobiyouth</organization>
+            <organizationUrl>www.tobiyouth.cn</organizationUrl>
+            <url>https://github.com/Tobiyouth/FeiEUtils.git</url>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/Tobiyouth/FeiEUtils</url>
+        <connection>https://github.com/Tobiyouth/FeiEUtils.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Tobiyouth/FeiEUtils.git</developerConnection>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -20,14 +51,9 @@
             <version>2.6</version>
         </dependency>
         <dependency>
-            <groupId>httpclient</groupId>
+            <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>httpclient</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>4.4.4</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -43,12 +69,114 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <serverId>central</serverId>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>${serverId}</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>${serverId}</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <!-- maven 打包时跳过测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Gpg Signature -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!--   central发布插件    -->
+            <!--            <plugin>-->
+            <!--                <groupId>org.sonatype.central</groupId>-->
+            <!--                <artifactId>central-publishing-maven-plugin</artifactId>-->
+            <!--                <version>0.4.0</version>-->
+            <!--                <extensions>true</extensions>-->
+            <!--                <configuration>-->
+            <!--                    <publishingServerId>masiyi</publishingServerId>-->
+            <!--                    <tokenAuth>true</tokenAuth>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>${serverId}</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+<!--                    <publishingServerId>${serverId}</publishingServerId>-->
+<!--                    <tokenAuth>true</tokenAuth>-->
+                </configuration>
+            </plugin>
+            <!--   source源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--   javadoc插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
 
 </project>

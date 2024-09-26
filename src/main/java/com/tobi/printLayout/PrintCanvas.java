@@ -70,7 +70,7 @@ public class PrintCanvas extends ContainerBase {
      * @Date 2024/9/1 20:40
      **/
     public int getSurplusHeight() {
-        return getHeight() - getPaddingBottom() - getY();
+        return getHeight() - getPaddingBottom() - getPaddingTop() - getY();
     }
 
     /**
